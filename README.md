@@ -14,7 +14,7 @@ gem install landscape-api
 require 'landscape'
 
 client = Landscape::Client.new(api_access_key: 'enter key here',
-                               secret_access_key: 'enter secret here'
+                               secret_access_key: 'enter secret here')
 puts client.get_access_groups
 
 [{'children' => '', 'name' => 'my-computers', 'parent' => 'global', 'title' => 'My Computers'}, 
