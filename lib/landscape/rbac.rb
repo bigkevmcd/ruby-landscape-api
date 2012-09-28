@@ -75,5 +75,34 @@ module Landscape
       raise ArgumentError, 'No :name' if options[:name].nil? || options[:name].empty?
       fetch_response(action: 'CreateRole', params: options)      
     end
+
+    # Remove an access group.
+    #
+    # @param [String] name The name of the access group to remove.
+    def remove_access_group(name)
+      raise ArgumentError, 'No name provided' if name.nil? || name.empty?
+      params = {'name' => name}
+      fetch_response(action: 'RemoveAccessGroup', params: params)
+    end
+
+    # Remove the given access groups from a role.
+    #
+    # @param [String] name The name of the role to modify.
+    # @param [Array<String>] access_groups A list of names of access groups to remove.
+    def remove_access_groups_from_role(name, access_groups)
+      params = {'name' => name}
+      params.merge!(Landscape.pathlist('access_groups', access_groups))
+      fetch_response(action: 'RemoveAccessGroupsFromRole', params: params)
+    end
+
+    # Remove the given permissions from a role.
+    #
+    # @param [String] name The name of the role to modify.
+    # @param [Array<String>] permissions A list of names of permissions to remove.
+    def remove_permissions_from_role(name, permissions)
+      params = {'name' => name}
+      params.merge!(Landscape.pathlist('permissions', permissions))
+      fetch_response(action: 'RemovePermissionsFromRole', params: params)
+    end
   end
 end
